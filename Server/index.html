@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Screen Viewer</title>
+  {% if n == 0 %}
+    <!-- Only when showing the newest: reload every 5 seconds to pick up new screenshots -->
+    <meta http-equiv="refresh" content="5">
+  {% endif %}
+</head>
+<body>
+  <h1>Screen Viewer</h1>
+
+  {% if shots %}
+    <p>
+      {% if n < shots|length - 1 %}<a href="/?n={{ n + 1 }}"><button>Previous</button></a>{% endif %}
+      {% if n > 0 %}<a href="/?n={{ n - 1 }}"><button>Next</button></a>{% endif %}
+      {% if n > 0 %}<a href="/"><button>Latest</button></a>{% endif %}
+    </p>
+    <p>{{ shots[n] }} ({{ n + 1 }} of {{ shots|length }})</p>
+    <img src="/screenshots/{{ shots[n] }}" width="100%">
+  {% else %}
+    <p>Waiting for the first screenshot...</p>
+  {% endif %}
+</body>
+</html>
